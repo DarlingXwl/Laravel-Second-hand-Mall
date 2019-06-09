@@ -1,0 +1,30 @@
+.usercenter{
+	/*margin-top: 80px;*/
+	padding: 200px;
+}
+.member dt,
+.change dt,
+.change dd,
+.member dd{
+	margin: 15px;
+}
+.span12>dl{
+	padding-top: 50px;
+	text-align: center;
+}
+.span12>dl::after{
+content:'*';
+position:absolute;
+right:-10px;
+top:0;
+color:red;
+}
+.panel-heading{
+	margin-top: 30px; 
+}
+.headerpic{
+	margin: 20px;
+}
+.form-group{
+	margin-top: 10px;
+}
