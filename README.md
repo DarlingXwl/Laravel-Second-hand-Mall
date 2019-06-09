@@ -1,58 +1,77 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+1	安装环境要求
+PHP>7.1.0
+PHP OpenSSL 扩展
+PHP PDO 扩展
+PHP Mbstring 扩展
+PHP Tokenizer 扩展
+PHP XML 扩展
 
-## About Laravel
+2	安装方式
+2.1	移动目录
+Windows使用wamp或phpstudy类似的集成环境，将整个shop目录复制到web网站根目录下。
+wamp和phpstudy根目录皆为程序安装目录下的www目录。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+Linux用户的lamp组合将shop目录复制到/var/www/html目录下，并设置Selinux和防火墙。
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+2.2	数据库迁移
+打开MySQL控制台，执行以下命令
+//创建数据库
+CREATE database shop;
+	//使用数据库
+USE shop;
+	//恢复所有数据
+SOURCE 文件绝对路径/shop.sql;
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+	修改/shop/.env文件
+DB_CONNECTION=mysql
+DB_HOST=localhost  //服务器域名（IP）
+DB_PORT=3306		//默认端口号（默认情况下不要修改）
+DB_DATABASE=shop	//数据库名称（直接使用SHOP）
+DB_USERNAME=root  //MYSQL用户
+DB_PASSWORD=		//MYSQL密码
 
-## Learning Laravel
+3	虚拟主机
+由于laravel路由的原因，该系统必须使用虚拟主机才能拥有更好的体验。
+1)	Wamp及phpstudy修改\apache\apache2.4.37\conf\extra下的httpd-vhosts.conf文件（也可以新建），修改内容为：
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+<VirtualHost *:80>
+  ServerName www.leyouda.cc
+  ServerAlias leyouda.cc
+  DocumentRoot "目录所在位置\shop\public"
+  <Directory "目录所在位置\shop\public">
+    Options +Indexes
+    AllowOverride All
+    Require local
+  </Directory>
+</VirtualHost>
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
 
-## Laravel Sponsors
+2)	检查\apache\apache2.4.37\conf\httpd.conf是否包含了虚拟主机文件，没有包含的需要手动包含修改完成后重启apache服务器。
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
+# Virtual hosts
+Include conf/extra/httpd-vhosts.conf
 
-## Contributing
+3)	修改hosts文件
+Hosts文件位于C:\Windows\System32\drivers\etc，将其复制到任意位置(除windows目录)后添加一下内容：
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+127.0.0.1 www.leyouda.cc
+127.0.0.1 leyouda.cc
 
-## Security Vulnerabilities
+保存文件，并覆盖源目录的中的hosts文件。
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4	测试运行
+前台：域名/
+ 
 
-## License
+后台访问：域名/ admin/public
+ 
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+前台账户 密码
+123456  123465
+234567  234567
+345678  345678
+
+后台账户：111413 密码 123123
+
